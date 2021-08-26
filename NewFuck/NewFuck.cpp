@@ -130,9 +130,8 @@ int run(string cmd) {
         case '<':
             if (index == 0)
                 cout << "failed to move" << endl;
-            else {
+            else
                 index--;
-            }
             break;
         case'(':
             if (datas[index]->value.i) {
@@ -201,7 +200,6 @@ var* singleParse(string str,unsigned int& index) {
         for (index; index < str.length() && str[index] != '"'; index++)
             result->value.str[i++] = str[index];
         result->value.str[i] = '\0';
-        index++;
     }
     return result;
 }

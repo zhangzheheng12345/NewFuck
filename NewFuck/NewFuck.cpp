@@ -78,20 +78,90 @@ int run(string cmd) {
             }
             break;
         case '+':
-            if (datas[index]->type == var::Int)
-                datas[index]->value.i++;
-            else if (datas[index]->type == var::Char)
-                datas[index]->value.c++;
-            else
-                cout << "failed adding in " << i << endl;
+            if (datas[index]->type == var::Int) {
+                var* operate = singleParse(cmd, ++i);
+                if (operate)
+                    datas[index]->value.i += operate->value.i;
+                else {
+                    datas[index]->value.i++;
+                    i--;
+                }
+                break;
+            }
+            else if (datas[index]->type == var::Char) {
+                var* operate = singleParse(cmd, ++i);
+                if (operate)
+                    datas[index]->value.c += operate->value.c;
+                else {
+                    datas[index]->value.c++;
+                    i--;
+                }
+                break;
+            }
+            else {
+                var* operate = singleParse(cmd, ++i);
+                if (operate) {
+                    unsigned int l = strlen(datas[index]->value.str);
+                    for (int j = 0; operate->value.str[j - 1]; j++)
+                        datas[index]->value.str[j + l] = operate->value.str[j];
+                }
+                else {
+                    cout << "failed adding in " << i << endl;
+                    i--;
+                }
+            }
             break;
         case '-':
-            if (datas[index]->type == var::Int)
-                datas[index]->value.i--;
-            else if (datas[index]->type == var::Char)
-                datas[index]->value.c--;
+            if (datas[index]->type == var::Int) {
+                var* operate = singleParse(cmd, ++i);
+                if (operate)
+                    datas[index]->value.i -= operate->value.i;
+                else {
+                    datas[index]->value.i--;
+                    i--;
+                }
+                break;
+            }
+            else if (datas[index]->type == var::Char) {
+                var* operate = singleParse(cmd, ++i);
+                if (operate)
+                    datas[index]->value.c -= operate->value.c;
+                else {
+                    datas[index]->value.c--;
+                    i--;
+                }
+                break;
+            }
             else
-                cout << "failed substricting in " << i << endl;
+                cout << "failed substrictiing in " << i << endl;
+            break;
+        case '^':
+            if (datas[index]->type == var::Int) {
+                var* a = singleParse(cmd, ++i);
+                int point;
+                if (a->type == var::Int)
+                    point = a->value.i;
+                else {
+                    cout << "invalid point in " << i << endl;
+                    break;
+                }
+                for (int j = 0; j < point; j++)
+                    datas[index]->value.i *= datas[index]->value.i;
+            }
+            else if (datas[index]->type == var::Char) {
+                var* a = singleParse(cmd, ++i);
+                int point;
+                if (a->type == var::Int)
+                    point = a->value.i;
+                else {
+                    cout << "invalid point in " << i << endl;
+                    break;
+                }
+                for (int j = 0; j < point; j++)
+                    datas[index]->value.c *= datas[index]->value.c;
+            }
+            else
+                cout << "failed power in " << i << endl;
             break;
         case '.':
             if (datas[index]->type == var::Int)
@@ -131,7 +201,7 @@ int run(string cmd) {
             if (index == 0)
                 cout << "failed to move" << endl;
             else
-                index--;
+                cout << --index;
             break;
         case'(':
             if (datas[index]->value.i) {
@@ -140,20 +210,36 @@ int run(string cmd) {
                     block += cmd[j];
                 i += run(block) + 1;
             }
+            else {
+                unsigned int count = 1;
+                for (++i; i < cmd.length() && count; i++)
+                    if (cmd[i] == '(') count++;
+                    else if (cmd[i] == ')') count--;
+                i--;
+            }
             break;
         case ')':
             return i;
             break;
-        case'[': {
-            string block = "";
-            int pos = 0;
-            for (unsigned int j = i + 1; j < cmd.length(); j++)
-                block += cmd[j];
-            while (datas[index]->value.i) {
-                pos = run(block);
+        case'[': 
+            if (datas[index]->value.i) {
+                string block = "";
+                int pos = 0;
+                for (unsigned int j = i + 1; j - 1 < cmd.length(); j++)
+                    block += cmd[j];
+                cout << block;
+                while (datas[index]->value.i) {
+                    pos = run(block);
+                }
+                i += pos + 1;
             }
-            i += pos + 1;
-        }
+            else {
+                unsigned int count = 1;
+                for (++i; i < cmd.length() && count; i++)
+                    if (cmd[i] == '[') count++;
+                    else if (cmd[i] == ']') count--;
+                i--;
+            }
             break;
         case ']':
             return i;
@@ -177,8 +263,9 @@ string script(string path) {
 }
 
 var* singleParse(string str,unsigned int& index) {
-    var* result = new var;
+    var* result = NULL;
     if (isdigit(str[index])) {
+        result = new var;
         result->type = var::Int;
         string num;
         for (index; index < str.length() && isdigit(str[index]); index++) {
@@ -186,14 +273,17 @@ var* singleParse(string str,unsigned int& index) {
         }
         for (int i = 0; i < num.length(); i++)
             result->value.i = result->value.i * 10 + num[i] - 48;
+        index--;
     }
     if (str[index] == '\'') {
+        result = new var;
         result->type = var::Char;
         result->value.c = str[++index];
         index++;
     }
     if (str[index] == '"') {
         index++;
+        result = new var;
         result->type = var::String;
         result->value.str = new char[1025];
         int i = 0;

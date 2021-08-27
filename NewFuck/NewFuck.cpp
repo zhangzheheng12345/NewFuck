@@ -28,7 +28,7 @@ public:
     } value;
 };
 
-const unsigned int datasLength = 100;
+const unsigned int datasLength = 2048;
 var* datas[datasLength];
 unsigned int index = 0;
 
@@ -201,7 +201,7 @@ int run(string cmd) {
             if (index == 0)
                 cout << "failed to move" << endl;
             else
-                cout << --index;
+                index--;
             break;
         case'(':
             if (datas[index]->value.i) {
@@ -227,7 +227,6 @@ int run(string cmd) {
                 int pos = 0;
                 for (unsigned int j = i + 1; j - 1 < cmd.length(); j++)
                     block += cmd[j];
-                cout << block;
                 while (datas[index]->value.i) {
                     pos = run(block);
                 }

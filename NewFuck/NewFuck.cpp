@@ -36,9 +36,13 @@ int run(string);
 string script(string);
 var* singleParse(string,unsigned int&);
 
-int main()
+int main(int argc,char argv[])
 {
+    if (argc >= 0) {
+        run(script(arv));
+    }
     cout << "Hello NewFuck\n";
+    cout << "Type 'quit' to exit";
     string cmd = "";
     datas[0] = new var;
     for (int i = 1; i < datasLength; i++)
@@ -78,91 +82,20 @@ int run(string cmd) {
             }
             break;
         case '+':
-            if (datas[index]->type == var::Int) {
-                var* operate = singleParse(cmd, ++i);
-                if (operate)
-                    datas[index]->value.i += operate->value.i;
-                else {
-                    datas[index]->value.i++;
-                    i--;
-                }
-                break;
-            }
-            else if (datas[index]->type == var::Char) {
-                var* operate = singleParse(cmd, ++i);
-                if (operate)
-                    datas[index]->value.c += operate->value.c;
-                else {
-                    datas[index]->value.c++;
-                    i--;
-                }
-                break;
-            }
-            else {
-                var* operate = singleParse(cmd, ++i);
-                if (operate) {
-                    unsigned int l = strlen(datas[index]->value.str);
-                    for (int j = 0; operate->value.str[j - 1]; j++)
-                        datas[index]->value.str[j + l] = operate->value.str[j];
-                }
-                else {
-                    cout << "failed adding in " << i << endl;
-                    i--;
-                }
-            }
+            if (datas[index]->type == var::Int)
+                datas[index]->value.i++;
+            else if (datas[index]->type == var::Char)
+                datas[index]->value.c++;
+            else
+                cout << "failed adding in " << i << endl;
             break;
         case '-':
-            if (datas[index]->type == var::Int) {
-                var* operate = singleParse(cmd, ++i);
-                if (operate)
-                    datas[index]->value.i -= operate->value.i;
-                else {
-                    datas[index]->value.i--;
-                    i--;
-                }
-                break;
-            }
-            else if (datas[index]->type == var::Char) {
-                var* operate = singleParse(cmd, ++i);
-                if (operate)
-                    datas[index]->value.c -= operate->value.c;
-                else {
-                    datas[index]->value.c--;
-                    i--;
-                }
-                break;
-            }
+            if (datas[index]->type == var::Int)
+                datas[index]->value.i--;
+            else if (datas[index]->type == var::Char)
+                datas[index]->value.c--;
             else
                 cout << "failed substrictiing in " << i << endl;
-            break;
-        case '^':
-            if (datas[index]->type == var::Int) {
-                var* a = singleParse(cmd, ++i);
-                int point;
-                if (a->type == var::Int)
-                    point = a->value.i;
-                else {
-                    cout << "invalid point in " << i << endl;
-                    break;
-                }
-                int bottom = datas[index]->value.i;
-                for (int j = 0; j < point; j++)
-                    datas[index]->value.i *= bottom;
-            }
-            else if (datas[index]->type == var::Char) {
-                var* a = singleParse(cmd, ++i);
-                int point;
-                if (a->type == var::Int)
-                    point = a->value.i;
-                else {
-                    cout << "invalid point in " << i << endl;
-                    break;
-                }
-                for (int j = 0; j < point; j++)
-                    datas[index]->value.c *= datas[index]->value.c;
-            }
-            else
-                cout << "failed power in " << i << endl;
             break;
         case '.':
             if (datas[index]->type == var::Int)
@@ -204,7 +137,7 @@ int run(string cmd) {
             else
                 index--;
             break;
-        case'(':
+        case '(':
             if (datas[index]->value.i) {
                 string block = "";
                 for (unsigned int j = i + 1; j < cmd.length(); j++)
@@ -222,7 +155,7 @@ int run(string cmd) {
         case ')':
             return i;
             break;
-        case'[': 
+        case '[': 
             if (datas[index]->value.i) {
                 string block = "";
                 int pos = 0;

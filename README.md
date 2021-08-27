@@ -9,14 +9,13 @@ Though BF is more likely to be a special toy for programmers,its son NF is more 
 ## Grammar
 ### Data and Their Types
 
-+---+---+---+----+ 
++---+---+---+----+  
 |    |    |    |...,|  
 +---+---+---+----+  
 Values are put in continuous boxes like BF,but they can have different types. In BF there is only one type,and now we got integers,characters and strings.  
 ### Operators
-'+': Plus 1 or plus the following constant value.  
-'-': Minus 1 or minus the following constant value.  
-'^':Power the value with the following constant value.  
+'+': Plus 1.  
+'-': Minus 1.  
 '>': Move to the next box.  
 '<': Move to the last box.  
 '.': Print the value in the present box.  

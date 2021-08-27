@@ -145,8 +145,9 @@ int run(string cmd) {
                     cout << "invalid point in " << i << endl;
                     break;
                 }
+                int bottom = datas[index]->value.i;
                 for (int j = 0; j < point; j++)
-                    datas[index]->value.i *= datas[index]->value.i;
+                    datas[index]->value.i *= bottom;
             }
             else if (datas[index]->type == var::Char) {
                 var* a = singleParse(cmd, ++i);

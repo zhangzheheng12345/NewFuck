@@ -49,10 +49,10 @@ int main(int argc,char* argv[])
         datas[i] = NULL;
     while (cmd != "quit") {
         cout << ">>>";
-        getline(cin, cmd);
+        getline(std::cin, cmd);
         run(cmd);
     }
-    cin.get();
+    std::cin.get();
 }
 
 int run(string cmd) {
@@ -107,20 +107,20 @@ int run(string cmd) {
             break;
         case ',':
             if (datas[index]->type == var::Int)
-                cin >> datas[index]->value.i;
+                std::cin >> datas[index]->value.i;
             else if (datas[index]->type == var::Char)
-                cin >> datas[index]->value.c;
+                std::cin >> datas[index]->value.c;
             else if (datas[index]->type == var::String)
-                cin >> datas[index]->value.str;
-            cin.get();
+                std::cin >> datas[index]->value.str;
+            std::cin.get();
             break;
         case ';':
             if (datas[index]->type == var::Int)
-                cin >> datas[index]->value.i;
+                std::cin >> datas[index]->value.i;
             else if (datas[index]->type == var::Char)
-                cin >> datas[index]->value.c;
+                std::cin >> datas[index]->value.c;
             else if (datas[index]->type == var::String)
-                cin.getline(datas[index]->value.str, 1024);
+                std::cin.getline(datas[index]->value.str, 1024);
             break;
         case '>':
             if (index + 1 >= datasLength)

@@ -1,5 +1,5 @@
 > (avoid possible value)
-= 20 >(set counter)<
+=20 >(set counter)<
 [
     >+.
     <-

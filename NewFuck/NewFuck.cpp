@@ -36,13 +36,13 @@ int run(string);
 string script(string);
 var* singleParse(string,unsigned int&);
 
-int main(int argc,char argv[])
+int main(int argc,char* argv[])
 {
-    if (argc >= 0) {
-        run(script(arv));
+    if (argc > 1) {
+        run(script(argv[1]));
     }
     cout << "Hello NewFuck\n";
-    cout << "Type 'quit' to exit";
+    cout << "Type 'quit' to exit\n";
     string cmd = "";
     datas[0] = new var;
     for (int i = 1; i < datasLength; i++)

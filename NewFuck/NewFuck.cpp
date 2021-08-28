@@ -177,8 +177,19 @@ int run(string cmd) {
         case ']':
             return i;
             break;
-        case '=':
-            datas[index] = singleParse(cmd, ++i);
+        case '=': {
+            var* result = singleParse(cmd, ++i);
+            if (datas[index]->type == var::Int) {
+                datas[index]->value.i = result->value.i;
+                delete result;
+            }
+            else if (datas[index]->type == var::Char) {
+                datas[index]->value.c = result->value.c;
+                delete result;
+            }
+            else
+                datas[index] = result;
+        }
             break;
         }
     }

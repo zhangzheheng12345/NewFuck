@@ -50,6 +50,7 @@ int main(int argc,char* argv[])
     while (cmd != "quit") {
         cout << ">>>";
         getline(std::cin, cmd);
+        cmd += '\n';
         run(cmd);
     }
     std::cin.get();
@@ -191,6 +192,9 @@ int run(string cmd) {
                 datas[index] = result;
         }
             break;
+        case '#':
+            for(i;i < cmd.length() && cmd[i] != '\n';i++);
+            break;
         }
     }
 }
@@ -202,6 +206,7 @@ string script(string path) {
     while (!file.eof()) {
         getline(file, x);
         result += x;
+        result += '\n';
     }
     return result;
 }

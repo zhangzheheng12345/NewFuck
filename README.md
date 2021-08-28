@@ -29,6 +29,7 @@ Values are put in continuous boxes like BF,but they can have different types. In
 'c': Set the present box char.(Not default, and different from BF)  
 's': Set the present box string.(Max 1025 size, not default and different from BF)  
 '=': Fill the present box with the following constant value.(Different from BF)   
+'#': Single line note.  
 
 * (Example:"=10" set the present box 10)   
 

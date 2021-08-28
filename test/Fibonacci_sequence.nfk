@@ -1,7 +1,7 @@
 >
-=1. >
-=2. >
-> ++++++++
+=1. > #begin number 1
+=2. > #begin number 2
+> =8 #output times count
 [
 	<
 	=0
@@ -9,19 +9,19 @@
 	[
 		->>
 		+<<
-	]
+	] #add number 1
 	>
 	[
 		->>>
 		+<<<
-	]
+	] #move number 2 to tmp
 	>>>
 	[
 		-<<<
 		+>
 		+>>
-	]
+	] #move tmp back to number 2 and add to now
 	<<.>
-	[>+<-]
-	>-
+	[>+<-] #move counter to next
+	>- #minus counter
 ]

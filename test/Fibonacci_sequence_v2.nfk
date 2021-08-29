@@ -1,6 +1,6 @@
 >
-=9 #set counter
-> =2 #set number 1.number 1 bigger.
+=2000 #set counter
+> =2. #set number 1.number 1 bigger.
 > =1. #set number 2
 <.< #move to counter
 [

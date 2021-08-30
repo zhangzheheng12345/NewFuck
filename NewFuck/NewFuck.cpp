@@ -215,6 +215,7 @@ string script(string path) {
 
 var* singleParse(string str,unsigned int& index) {
     var* result = NULL;
+    for(index;isspace(str[index]);index++);
     if (isdigit(str[index])) {
         result = new var;
         result->type = var::Int;

@@ -6,6 +6,11 @@ Call it NF in the following statements.
 This language is quite similar to the language of BrainF*ck (which is called BF in the following statements).But some more new grammar is added to NF so that NF is more easy to use and powerful.  
 Though BF is more likely to be a special toy for programmers,its son NF is more meaningful(probably more interesting as well).  
 
+## Use
+
+* Type 'NewFuck' in cmdline to run NF interactively.  
+* Type 'NewFuck' + NF_script_name in cmdline to run NF_script.  
+
 ## Grammar
 ### Data and Their Types
 
@@ -28,8 +33,8 @@ Values are put in continuous boxes like BF,but they can have different types. In
 'i': Set the present box int.(Default, and different from BF)  
 'c': Set the present box char.(Not default, and different from BF)  
 's': Set the present box string.(Max 1025 size, not default and different from BF)  
+'#': Single line note.(Different from BF)  
 '=': Fill the present box with the following constant value.(Different from BF)   
-'#': Single line note.  
 
 * (Example:"=10" set the present box 10)   
 

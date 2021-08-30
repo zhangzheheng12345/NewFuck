@@ -41,19 +41,21 @@ int main(int argc,char* argv[])
     if (argc > 1) {
         run(script(argv[1]));
     }
-    cout << "Hello NewFuck\n";
-    cout << "Type 'quit' to exit\n";
-    string cmd = "";
-    datas[0] = new var;
-    for (int i = 1; i < datasLength; i++)
-        datas[i] = NULL;
-    while (cmd != "quit") {
-        cout << ">>>";
-        getline(std::cin, cmd);
-        cmd += '\n';
-        run(cmd);
+    else {
+        cout << "Hello NewFuck\n";
+        cout << "Type 'quit' to exit\n";
+        string cmd = "";
+        datas[0] = new var;
+        for (int i = 1; i < datasLength; i++)
+            datas[i] = NULL;
+        while (cmd != "quit") {
+            cout << ">>>";
+            getline(std::cin, cmd);
+            cmd += '\n';
+            run(cmd);
+        }
+        std::cin.get();
     }
-    std::cin.get();
 }
 
 int run(string cmd) {
